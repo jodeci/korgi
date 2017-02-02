@@ -1,6 +1,6 @@
 # frozen_string_literal: true
+require "rails/engine"
 module Korgi
   class Engine < ::Rails::Engine
-    isolate_namespace Korgi
   end
 end

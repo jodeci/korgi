@@ -9,4 +9,3 @@ Gemfile.lock
 coverage/
 .DS_Store
 .config.reek
-.rubocop.yml

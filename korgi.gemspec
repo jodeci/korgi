@@ -18,4 +18,5 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 5.0"
   s.add_dependency "activesupport", "~> 5.0"
+  s.add_dependency "html-pipeline", "~> 2.4"
 end
