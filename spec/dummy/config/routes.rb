@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   mount Korgi::Engine => "/korgi"
 
-  resources :posts
+  namespace :admin do
+    resources :posts
+  end
+
   resources :images
 end

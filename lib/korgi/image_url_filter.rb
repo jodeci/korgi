@@ -7,21 +7,22 @@ module Korgi
     end
 
     def call
-      str = doc.to_s.gsub(path_pattern) { replace_path(Regexp.last_match) }
+      str = doc.to_s.gsub(pattern) { replace(Regexp.last_match) }
       Nokogiri::HTML::DocumentFragment.parse(str)
     end
 
     private
 
-    def replace_path(matches)
+    def replace(matches)
       result, model, id, version = matches.to_a
-      # TODO: lookup matching model and mounter from initializer
-      Image.find(id).file.url(version)
-    rescue ActiveRecord::RecordNotFound
+      object, upload_mount, default_version = Korgi.config.images[model.to_sym]
+      version ||= default_version
+      object.find(id).send(upload_mount).url(version)
+    rescue ActiveRecord::RecordNotFound, NameError
       result
     end
 
-    def path_pattern
+    def pattern
       %r{%([\w]+)\.([\d]+)(?:\.([\w]+))?%}
     end
   end

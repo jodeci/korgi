@@ -10,9 +10,18 @@ describe Korgi::ImageUrlFilter do
   end
 
   context "when there is a matching image" do
-    let(:doc) { "%image.1.thumb%" }
-    it "will replace the string with the path" do
-      expect(subject).to eq "/uploads/image/file/1/thumb_test.jpg"
+    context "%image.1.large%" do
+      let(:doc) { "%image.1.large%" }
+      it "will replace the string with the path of the specified version" do
+        expect(subject).to eq "/uploads/image/file/1/large_test.jpg"
+      end
+    end
+
+    context "%image.1%" do
+      let(:doc) { "%image.1%" }
+      it "will replace the string with the path of the default version" do
+        expect(subject).to eq "/uploads/image/file/1/thumb_test.jpg"
+      end
     end
   end
 

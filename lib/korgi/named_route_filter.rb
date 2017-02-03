@@ -11,25 +11,20 @@ module Korgi
     end
 
     def call
-      str = doc.to_s.gsub(path_pattern) { replace_path(Regexp.last_match) }
+      str = doc.to_s.gsub(pattern) { replace(Regexp.last_match) }
       Nokogiri::HTML::DocumentFragment.parse(str)
     end
 
     private
 
-    def replace_path(matches)
+    def replace(matches)
       result, model, id = matches.to_a
-      url_for(controller: controller_name(model), action: "show", id: id, only_path: true)
+      url_for(controller: Korgi.config.routes[model.to_sym], action: "show", id: id, only_path: true)
     rescue ActionController::UrlGenerationError
       result
     end
 
-    def controller_name(model)
-      # TODO: lookup matching controller from initializer
-      model.pluralize
-    end
-
-    def path_pattern
+    def pattern
       %r{\$([\w]+)\.([\d]+)\$}
     end
   end
