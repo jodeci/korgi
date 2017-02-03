@@ -12,7 +12,7 @@ describe Korgi::ImageUrlFilter do
   context "when there is a matching image" do
     let(:doc) { "%image.1.thumb%" }
     it "will replace the string with the path" do
-      expect(subject).to eq "#{store_dir_prefix}/image/file/1/thumb_test.jpg"
+      expect(subject).to eq "/uploads/image/file/1/thumb_test.jpg"
     end
   end
 

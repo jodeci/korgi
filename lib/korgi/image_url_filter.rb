@@ -1,13 +1,7 @@
 # frozen_string_literal: true
 require "html/pipeline"
-#require "carrierwave"
-#require "mini_magick"
 module Korgi
   class ImageUrlFilter < ::HTML::Pipeline::Filter
-    #include ActionView::Helpers
-    #include ActionDispatch::Routing
-    #include Rails.application.routes.url_helpers
-
     def initialize(doc, context = nil, result = nil)
       super doc, context, result
     end

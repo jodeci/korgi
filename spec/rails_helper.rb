@@ -3,10 +3,8 @@ require "rails/all"
 require "spec_helper"
 require "dummy/config/environment"
 require "rspec/rails"
-require_relative "support/uploader_spec_helper"
 
 RSpec.configure do |config|
-  config.include UploaderSpecHelper
   config.include FactoryGirl::Syntax::Methods
 
   config.before(:suite) do
