@@ -25,7 +25,7 @@ module Korgi
     end
 
     def pattern
-      %r{\$([\w]+)\.([\d]+)\$}
+      %r{\$#([\w]+).([\d]+)\$}
     end
   end
 end

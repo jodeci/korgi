@@ -10,15 +10,22 @@ describe Korgi::ImageUrlFilter do
   end
 
   context "when there is a matching image" do
-    context "%image.1.large%" do
-      let(:doc) { "%image.1.large%" }
+    context "$+image.1.large$" do
+      let(:doc) { "$+image.1.large$" }
       it "will replace the string with the path of the specified version" do
         expect(subject).to eq "/uploads/image/file/1/large_test.jpg"
       end
     end
 
-    context "%image.1%" do
-      let(:doc) { "%image.1%" }
+    context "$+image.1.invalid$" do
+      let(:doc) { "$+image.1.invalid$" }
+      xit "will replace the string with the path of the default version" do
+        expect(subject).to eq "/uploads/image/file/1/thumb_test.jpg"
+      end
+    end
+
+    context "$+image.1$" do
+      let(:doc) { "$+image.1$" }
       it "will replace the string with the path of the default version" do
         expect(subject).to eq "/uploads/image/file/1/thumb_test.jpg"
       end
@@ -26,9 +33,9 @@ describe Korgi::ImageUrlFilter do
   end
 
   context "when there is no matching image" do
-    let(:doc) { "%book.3%" }
+    let(:doc) { "$+book.3$" }
     it "will not replace the string" do
-      expect(subject).to eq "%book.3%"
+      expect(subject).to eq "$+book.3$"
     end
   end
 end

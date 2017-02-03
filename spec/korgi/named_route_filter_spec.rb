@@ -9,16 +9,20 @@ describe Korgi::NamedRouteFilter do
   end
 
   context "when there is a matching route" do
-    let(:doc) { "$post.15$" }
-    it "will replace the string with the path" do
-      expect(subject).to eq "/admin/posts/15"
+    context "$#post.15$" do
+      let(:doc) { "$#post.15$" }
+      it "will replace the string with the path" do
+        expect(subject).to eq "/admin/posts/15"
+      end
     end
   end
 
   context "when there is no matching route" do
-    let(:doc) { "$book.3$" }
-    it "will not replace the string" do
-      expect(subject).to eq "$book.3$"
+    context "$#book.3$" do
+      let(:doc) { "$#book.3$" }
+      it "will not replace the string" do
+        expect(subject).to eq "$#book.3$"
+      end
     end
   end
 end

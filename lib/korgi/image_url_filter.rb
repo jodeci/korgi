@@ -23,7 +23,7 @@ module Korgi
     end
 
     def pattern
-      %r{%([\w]+)\.([\d]+)(?:\.([\w]+))?%}
+      %r{\$\+([\w]+).([\d]+)(?:.([\w]+))?\$}
     end
   end
 end
