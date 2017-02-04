@@ -17,6 +17,10 @@ RSpec.configure do |config|
       example.run
     end
   end
+
+  config.after(:all) do
+    FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads"])
+  end
 end
 
 FactoryGirl.definition_file_paths = [File.expand_path("../factories", __FILE__)]
