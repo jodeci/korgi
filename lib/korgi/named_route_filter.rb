@@ -19,7 +19,7 @@ module Korgi
     def replace(matches)
       result, model, id = matches.to_a
       url_for(controller: Korgi.config.named_routes[model.to_sym], action: "show", id: id, only_path: true)
-    rescue ActionController::UrlGenerationError => e
+    rescue ActionController::UrlGenerationError
       result
     end
 

@@ -11,7 +11,7 @@
 $+image.1$
 
 # filtered result
-uploads/image/file/1/thumb_pic.jpg
+/uploads/image/file/1/thumb_pic.jpg
 ```
 
 *korgi* is meant to work with [CarrierWave](https://github.com/carrierwaveuploader/carrierwave). You will need to tell *korgi* how to map resources for you:
@@ -31,11 +31,12 @@ If you need the full url instead, you should change the settings for CarrierWave
 CarrierWave.configure do |config|
   config.asset_host = "http://awesome.host.com"
 end
+
+# filtered result
+http://awesome.host.com/uploads/image/file/1/thumb_pic.jpg
 ```
 
 ### Korgi::NamedRouteFilter
-
-TODO: I haven't found a fix yet, but for now you will need to manually `require "korgi/named_route_filter"` in your code for it to work, in addition to the standard gem installation.
 
 ```
 # input
