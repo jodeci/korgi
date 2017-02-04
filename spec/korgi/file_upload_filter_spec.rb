@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 require "rails_helper"
-require "korgi/image_url_filter"
+require "korgi/file_upload_filter"
 
-describe Korgi::ImageUrlFilter do
+describe Korgi::FileUploadFilter do
   before { FactoryGirl.create(:image) }
   subject do
-    filter = Korgi::ImageUrlFilter.new(doc)
+    filter = Korgi::FileUploadFilter.new(doc)
     filter.call.to_s
   end
 

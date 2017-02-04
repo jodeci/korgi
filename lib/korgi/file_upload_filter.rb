@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "html/pipeline"
 module Korgi
-  class ImageUrlFilter < ::HTML::Pipeline::Filter
+  class FileUploadFilter < ::HTML::Pipeline::Filter
     def initialize(doc, context = nil, result = nil)
       super doc, context, result
       @klass, @mount, @version = nil
@@ -16,7 +16,7 @@ module Korgi
 
     def replace(matches)
       result, model, id, version = matches.to_a
-      @klass, @mount, @version = Korgi.config.images[model.to_sym]
+      @klass, @mount, @version = Korgi.config.file_uploads[model.to_sym]
       version ||= @version
       @klass.find(id).send(@mount).url(file_version(version))
     rescue ActiveRecord::RecordNotFound, NameError
