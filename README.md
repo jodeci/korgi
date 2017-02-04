@@ -1,5 +1,10 @@
 # Korgi
 
+[![Gem Version](https://badge.fury.io/rb/korgi.svg)](https://badge.fury.io/rb/korgi)
+[![Code Climate](https://codeclimate.com/github/jodeci/korgi/badges/gpa.svg)](https://codeclimate.com/github/jodeci/korgi)
+[![Test Coverage](https://codeclimate.com/github/jodeci/korgi/badges/coverage.svg)](https://codeclimate.com/github/jodeci/korgi/coverage)
+[![Build Status](https://travis-ci.org/jodeci/korgi.svg?branch=master)](https://travis-ci.org/jodeci/korgi)
+
 [HTML::Pipeline](https://github.com/jch/html-pipeline) filters to generate urls for Rails resources with Markdown.
 
 ## Usage
