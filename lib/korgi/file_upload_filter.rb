@@ -8,8 +8,7 @@ module Korgi
     end
 
     def call
-      str = doc.to_s.gsub(pattern) { replace(Regexp.last_match) }
-      Nokogiri::HTML::DocumentFragment.parse(str)
+      doc.to_s.gsub(pattern) { replace(Regexp.last_match) }
     end
 
     private
