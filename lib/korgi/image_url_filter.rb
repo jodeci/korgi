@@ -4,6 +4,7 @@ module Korgi
   class ImageUrlFilter < ::HTML::Pipeline::Filter
     def initialize(doc, context = nil, result = nil)
       super doc, context, result
+      @klass, @mount, @version = nil
     end
 
     def call
@@ -15,11 +16,27 @@ module Korgi
 
     def replace(matches)
       result, model, id, version = matches.to_a
-      object, upload_mount, default_version = Korgi.config.images[model.to_sym]
-      version ||= default_version
-      object.find(id).send(upload_mount).url(version)
+      @klass, @mount, @version = Korgi.config.images[model.to_sym]
+      version ||= @version
+      @klass.find(id).send(@mount).url(file_version(version))
     rescue ActiveRecord::RecordNotFound, NameError
       result
+    end
+
+    def file_version(version)
+      if valid_file_version?(version)
+        version
+      else
+        @version
+      end
+    end
+
+    def valid_file_version?(version)
+      file_versions.include?(version.to_sym)
+    end
+
+    def file_versions
+      @klass.uploaders[@mount].versions.keys
     end
 
     def pattern

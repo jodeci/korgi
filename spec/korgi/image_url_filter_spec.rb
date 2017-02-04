@@ -19,7 +19,7 @@ describe Korgi::ImageUrlFilter do
 
     context "$+image.1.invalid$" do
       let(:doc) { "$+image.1.invalid$" }
-      xit "will replace the string with the path of the default version" do
+      it "will replace the string with the path of the default version" do
         expect(subject).to eq "/uploads/image/file/1/thumb_test.jpg"
       end
     end
