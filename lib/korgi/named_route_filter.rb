@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require "rails/all"
 require "html/pipeline"
 module Korgi
   class NamedRouteFilter < ::HTML::Pipeline::Filter
