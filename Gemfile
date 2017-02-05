@@ -10,6 +10,7 @@ group :test, :development do
   gem "database_cleaner"
   gem "sqlite3"
   gem "mini_magick"
+  gem "friendly_id", "~> 5.1"
 end
 
 group :test do
