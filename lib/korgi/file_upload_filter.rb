@@ -14,8 +14,8 @@ module Korgi
     private
 
     def replace(matches)
-      result, model, id, version = matches.to_a
-      @klass, @mount, @version = Korgi.config.file_uploads[model.to_sym]
+      result, target, id, version = matches.to_a
+      @klass, @mount, @version = Korgi.config.file_uploads[target.to_sym]
       version ||= @version
       @klass.find(id).send(@mount).url(file_version(version))
     rescue ActiveRecord::RecordNotFound, NameError

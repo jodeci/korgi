@@ -12,6 +12,8 @@ group :test, :development do
 end
 
 group :test do
+  gem "mini_magick"
+  gem "friendly_id", "~> 5.1"
   gem "simplecov"
   gem "codeclimate-test-reporter", "~> 1.0.0"
 end

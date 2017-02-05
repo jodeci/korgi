@@ -1,9 +1,11 @@
-require_relative 'boot'
+require_relative "boot"
 
-require 'rails/all'
+require "rails/all"
 
 Bundler.require(*Rails.groups)
 require "korgi"
+require "mini_magick"
+require "friendly_id"
 
 module Dummy
   class Application < Rails::Application

@@ -20,5 +20,4 @@ Gem::Specification.new do |s|
   s.add_dependency "activesupport", "~> 5.0"
   s.add_dependency "html-pipeline", "~> 2.4"
   s.add_dependency "carrierwave", "~> 1.0"
-  s.add_dependency "mini_magick", "~> 4.6"
 end

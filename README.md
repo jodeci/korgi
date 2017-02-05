@@ -28,7 +28,7 @@ Korgi.configure do |config|
 end
 ```
 
-This tells *korgi* that you have a CarrierWave uploader mounted to `Image:file`, with `:thumb` as its default version. You can then simply write `$+image.1$` or `$+image.1.large$` in your markdown input, and *korgi* will replace the syntax with the associated url (and version).
+This tells *korgi* that you have a CarrierWave uploader mounted to `Image` on `:file`, with `:thumb` as its default version. You can then simply write `$+image.1$` or `$+image.1.large$` in your markdown input, and *korgi* will replace the syntax with the associated url (and version).
 
 If you need the full url instead, you should change the settings for CarrierWave:
 
@@ -49,7 +49,7 @@ http://awesome.host.com/uploads/image/file/1/thumb_pic.jpg
 $#post.1$
 
 # filtered result
-/admin/posts/1
+/posts/1
 ```
 
 You will need to tell *korgi* how to map resouces for you:
@@ -57,15 +57,24 @@ You will need to tell *korgi* how to map resouces for you:
 ```
 # config/initializers/korgi.rb
 Korgi.configure do |config|
-  config.named_routes = { post: "admin/posts" }
+  config.named_routes = { post: [:posts] }
 end
 ```
 
-*korgi* will then be able to replace `$#post.1$` with the result of `admin_post_path(1)`.
+In Rails speak, this means that *korgi* will replace  `$#post.1$` with the result of `post_path(id: 1)`. If you are using [FriendlyId](https://github.com/norman/friendly_id) to create url slugs, you can also do this:
+
+```
+# config/initializers/korgi.rb
+Korgi.configure do |config|
+  config.named_routes = { post: [:posts, Post, :slug] }
+end
+```
+
+This will enable *korgi* to interpret `$#post.1$` as `post_path(id: Post.find(1).slug)` instead, and will then return the slugged url, e,g, `/posts/slug-url`.
 
 ### putting it all together
 
-I tried to keep *korgi* simple, so it only generates the link, not the entire html. You will most likely be using it along Markdown, but I'll leave that decision to you. Please do check out the documentation for [html-pipeline](https://github.com/jch/html-pipeline). Here is an example snippet:
+I tried to keep *korgi* simple, so it only generates the link, not the entire html. You will most likely be using *korgi* along Markdown, but I'll leave that decision to you. Please do check out the documentation for [html-pipeline](https://github.com/jch/html-pipeline) on how to render Markdown content. Here is an example snippet:
 
 ```
 pipeline =
@@ -81,7 +90,7 @@ EOD
 result[:output].to_s
 
 =>
-<p>This is a <a href="/admin/posts/1">link to post1</a>.</p>
+<p>This is a <a href="/posts/1">link to post1</a>.</p>
 <p>Here is an <img src="/uploads/image/file/1/thumb_pic.jpg" alt="image">.</p>
 ```
 

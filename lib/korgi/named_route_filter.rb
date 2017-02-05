@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require "rails/all"
 require "html/pipeline"
 module Korgi
   class NamedRouteFilter < ::HTML::Pipeline::Filter
@@ -8,6 +7,7 @@ module Korgi
 
     def initialize(doc, context = nil, result = nil)
       super doc, context, result
+      @id, @klass = nil
     end
 
     def call
@@ -17,10 +17,18 @@ module Korgi
     private
 
     def replace(matches)
-      result, model, id = matches.to_a
-      url_for(controller: Korgi.config.named_routes[model.to_sym], action: "show", id: id, only_path: true)
+      result, target, id = matches.to_a
+      controller, @klass, @id = Korgi.config.named_routes[target.to_sym]
+      @id ||= :id
+      url_for(controller: controller, action: "show", id: find_object(id), only_path: true)
     rescue ActionController::UrlGenerationError
       result
+    end
+
+    def find_object(id)
+      @id == :id ? id : @klass.find(id).send(@id)
+    rescue ActiveRecord::RecordNotFound
+      id
     end
 
     def pattern
