@@ -9,6 +9,7 @@ group :test, :development do
   gem "factory_girl_rails"
   gem "database_cleaner"
   gem "sqlite3"
+  gem "mini_magick"
 end
 
 group :test do
