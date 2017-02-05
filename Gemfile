@@ -9,11 +9,11 @@ group :test, :development do
   gem "factory_girl_rails"
   gem "database_cleaner"
   gem "sqlite3"
-  gem "mini_magick"
-  gem "friendly_id", "~> 5.1"
 end
 
 group :test do
+  gem "mini_magick"
+  gem "friendly_id", "~> 5.1"
   gem "simplecov"
   gem "codeclimate-test-reporter", "~> 1.0.0"
 end
