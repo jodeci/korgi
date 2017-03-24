@@ -2,12 +2,14 @@
 require "html/pipeline"
 module Korgi
   class NamedRouteFilter < ::HTML::Pipeline::Filter
+    attr_reader :target, :id
+
     include ActionView::Helpers
     include Rails.application.routes.url_helpers
 
     def initialize(doc, context = nil, result = nil)
       super doc, context, result
-      @id, @klass = nil
+      @target, @id = nil
     end
 
     def call
@@ -16,23 +18,45 @@ module Korgi
 
     private
 
-    def replace(matches)
-      result, target, id = matches.to_a
-      controller, @klass, @id = Korgi.config.named_routes[target.to_sym]
-      @id ||= :id
-      url_for(controller: controller, action: "show", id: find_object(id), only_path: true)
-    rescue ActionController::UrlGenerationError
-      result
+    def pattern
+      %r{\$#([\w]+).([\d]+)\$}
     end
 
-    def find_object(id)
-      @id == :id ? id : @klass.find(id).send(@id)
+    def replace(matches)
+      origin, @target, @id = matches.to_a
+      valid_target? ? resource_url : origin
+    rescue ActionController::UrlGenerationError
+      origin
+    end
+
+    def resource_url
+      url_for(controller: controller, action: "show", id: find_object, only_path: true)
+    end
+
+    def find_object
+      primary_key == :id ? id : klass.find(id).send(primary_key)
     rescue ActiveRecord::RecordNotFound
       id
     end
 
-    def pattern
-      %r{\$#([\w]+).([\d]+)\$}
+    def valid_target?
+      Korgi.config.named_routes.key?(target.to_sym)
+    end
+
+    def configured_value(key)
+      Korgi.config.named_routes[target.to_sym][key]
+    end
+
+    def controller
+      configured_value(:controller)
+    end
+
+    def klass
+      configured_value(:model)
+    end
+
+    def primary_key
+      configured_value(:primary_key) || :id
     end
   end
 end

@@ -33,9 +33,18 @@ describe Korgi::FileUploadFilter do
   end
 
   context "when there is no matching image" do
-    let(:doc) { "$+book.3$" }
-    it "will not replace the string" do
-      expect(subject).to eq "$+book.3$"
+    context "when a nil object is configured" do
+      let(:doc) { "$+image.100$" }
+      it "will fallback to the nil object" do
+        expect(subject).to match %r{^/assets/no_image_thumb-[\w]{32}+.png$}
+      end
+    end
+
+    context "when there is nothing to fallback to" do
+      let(:doc) { "$+book.3$" }
+      it "will not replace the string" do
+        expect(subject).to eq "$+book.3$"
+      end
     end
   end
 end

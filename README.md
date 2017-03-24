@@ -24,7 +24,7 @@ $+image.1$
 ```
 # config/initializers/korgi.rb
 Korgi.configure do |config|
-  config.file_uploads = { image: [Image, :file, :thumb] }
+  config.file_uploads = { image: { model: Image, mount: :file, default_version: :thumb } }
 end
 ```
 
@@ -57,7 +57,7 @@ You will need to tell *korgi* how to map resouces for you:
 ```
 # config/initializers/korgi.rb
 Korgi.configure do |config|
-  config.named_routes = { post: [:posts] }
+  config.named_routes = { post: { controller: :posts } }
 end
 ```
 
@@ -66,7 +66,7 @@ In Rails speak, this means that *korgi* will replace  `$#post.1$` with the resul
 ```
 # config/initializers/korgi.rb
 Korgi.configure do |config|
-  config.named_routes = { post: [:posts, Post, :slug] }
+  config.named_routes = { post: { controller: :posts, model: Post, primary_key: :slug } }
 end
 ```
 
