@@ -24,11 +24,17 @@ $+image.1$
 ```
 # config/initializers/korgi.rb
 Korgi.configure do |config|
-  config.file_uploads = { image: { model: Image, mount: :file, default_version: :thumb } }
+  config.file_uploads = { image: { model: Image, mount: :file, default_version: :thumb }
 end
 ```
 
 This tells *korgi* that you have a CarrierWave uploader mounted to `Image` on `:file`, with `:thumb` as its default version. You can then simply write `$+image.1$` or `$+image.1.large$` in your markdown input, and *korgi* will replace the syntax with the associated url (and version).
+
+If you are using a [Null Object Pattern](https://robots.thoughtbot.com/rails-refactoring-example-introduce-null-object), you can also set an optional `nil_object` for unavailable files to fallback for:
+
+```
+image: { ..., nil_object: NullImage }
+```
 
 If you need the full url instead, you should change the settings for CarrierWave:
 
