@@ -33,10 +33,17 @@ describe Korgi::NamedRouteFilter do
   end
 
   context "when there is no matching route" do
-    context "$#book.3$" do
+    context "when the resource is not configured" do
       let(:doc) { "$#book.3$" }
       it "will not replace the string" do
         expect(subject).to eq "$#book.3$"
+      end
+    end
+
+    context "when a configured resource does not exist" do
+      let(:doc) { "$#movie.1$" }
+      it "will not replace the string" do
+        expect(subject).to eq "$#movie.1$"
       end
     end
   end
