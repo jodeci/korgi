@@ -3,7 +3,7 @@ require "rails_helper"
 require "korgi/named_route_filter"
 
 describe Korgi::NamedRouteFilter do
-  before { FactoryGirl.create(:post) }
+  before { FactoryBot.create(:post) }
   subject do
     filter = Korgi::NamedRouteFilter.new(doc)
     filter.call.to_s

@@ -3,7 +3,7 @@ require "rails_helper"
 require "korgi/file_upload_filter"
 
 describe Korgi::FileUploadFilter do
-  before { FactoryGirl.create(:image) }
+  before { FactoryBot.create(:image) }
   subject do
     filter = Korgi::FileUploadFilter.new(doc)
     filter.call.to_s

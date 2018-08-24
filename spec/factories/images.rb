@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 include ActionDispatch::TestProcess
-FactoryGirl.define do
+FactoryBot.define do
   factory :image do
     id { 1 }
     file { fixture_file_upload("spec/photo/test.jpg", "image/jpg") }

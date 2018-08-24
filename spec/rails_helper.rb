@@ -5,7 +5,7 @@ require "dummy/config/environment"
 require "rspec/rails"
 
 RSpec.configure do |config|
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
@@ -23,5 +23,5 @@ RSpec.configure do |config|
   end
 end
 
-FactoryGirl.definition_file_paths = [File.expand_path("../factories", __FILE__)]
-FactoryGirl.find_definitions
+FactoryBot.definition_file_paths = [File.expand_path("../factories", __FILE__)]
+FactoryBot.find_definitions
