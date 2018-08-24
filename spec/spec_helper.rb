@@ -8,3 +8,9 @@ $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require "rubygems"
 require "bundler/setup"
 require "korgi"
+
+RSpec.configure do |config|
+  config.after(:all) do
+    FileUtils.rm_rf(Dir["#{Rails.root}/tmp/storage/*"]) if Rails.env.test?
+  end
+end
