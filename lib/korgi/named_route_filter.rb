@@ -52,7 +52,7 @@ module Korgi
     end
 
     def klass
-      configured_value(:model)
+      Object.const_get(configured_value(:model))
     end
 
     def primary_key

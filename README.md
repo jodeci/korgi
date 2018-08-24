@@ -24,7 +24,7 @@ $+image.1$
 ```
 # config/initializers/korgi.rb
 Korgi.configure do |config|
-  config.file_uploads = { image: { model: Image, mount: :file, default_version: :thumb }
+  config.file_uploads = { image: { model: :Image, mount: :file, default_version: :thumb }
 end
 ```
 
@@ -33,7 +33,7 @@ This tells *korgi* that you have a CarrierWave uploader mounted to `Image` on `:
 If you are using a [Null Object Pattern](https://robots.thoughtbot.com/rails-refactoring-example-introduce-null-object), you can also set an optional `nil_object` for unavailable files to fallback for:
 
 ```
-image: { ..., nil_object: NullImage }
+image: { ..., nil_object: :NullImage }
 ```
 
 If you need the full url instead, you should change the settings for CarrierWave:
@@ -72,7 +72,7 @@ In Rails speak, this means that *korgi* will replace  `$#post.1$` with the resul
 ```
 # config/initializers/korgi.rb
 Korgi.configure do |config|
-  config.named_routes = { post: { controller: :posts, model: Post, primary_key: :slug } }
+  config.named_routes = { post: { controller: :posts, model: :Post, primary_key: :slug } }
 end
 ```
 

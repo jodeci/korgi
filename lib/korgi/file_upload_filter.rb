@@ -36,7 +36,7 @@ module Korgi
     end
 
     def klass
-      configured_value(:model)
+      Object.const_get(configured_value(:model))
     end
 
     def mount
@@ -44,7 +44,7 @@ module Korgi
     end
 
     def nil_object
-      configured_value(:nil_object)
+      Object.const_get(configured_value(:nil_object))
     end
 
     def default_version
